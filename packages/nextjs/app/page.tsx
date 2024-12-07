@@ -7,7 +7,7 @@ import { useAccount } from "wagmi";
 import { BugAntIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import ShowAllUsers from "~~/components/mainpage/ShowAllUsers";
 import { Address } from "~~/components/scaffold-eth";
-import { Header } from "~~/components/Navbar";
+import { Header } from "~~/components/Header";
 import Hero from "~~/components/Hero";
 import Banner from '../public/Frame 3.png'
 
