@@ -1,9 +1,13 @@
 import "@rainbow-me/rainbowkit/styles.css";
+import { Header } from "~~/components/Header";
 import { ScaffoldEthAppWithProviders } from "~~/components/ScaffoldEthAppWithProviders";
 import { ThemeProvider } from "~~/components/ThemeProvider";
 import MainProvider from "~~/components/maincontext";
 import "~~/styles/globals.css";
 import { getMetadata } from "~~/utils/scaffold-eth/getMetadata";
+import { Montserrat } from "next/font/google";
+
+const mont = Montserrat({ subsets: ["latin"] });
 
 export const metadata = getMetadata({
   title: "Scaffold-ETH 2 App",
@@ -13,10 +17,13 @@ export const metadata = getMetadata({
 const ScaffoldEthApp = ({ children }: { children: React.ReactNode }) => {
   return (
     <html suppressHydrationWarning>
-      <body>
+      <body className={mont.className}>
         <ThemeProvider enableSystem>
           <ScaffoldEthAppWithProviders>
-            <MainProvider>{children}</MainProvider>
+            <MainProvider>
+            <Header />
+            {children}
+            </MainProvider>
           </ScaffoldEthAppWithProviders>
         </ThemeProvider>
       </body>

@@ -6,6 +6,13 @@ import Link from "next/link";
 // import Nounstar from "../assets/Nounstars.png";
 import { collection, onSnapshot } from "firebase/firestore";
 import { db } from "~~/firebase";
+import { Jura } from 'next/font/google';
+
+const jura = Jura({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+  style: ['normal']
+});
 
 const ShowAllUsers = () => {
   const collectionRef = collection(db, "users");
@@ -25,19 +32,19 @@ const ShowAllUsers = () => {
   }, [collectionRef]);
 
   return (
-    <div className="container pt-4 mx-auto">
-      <div className="flex flex-row gap-x-2">
+    <div className="container pt-4 px-4 mx-auto bg-black pb-4">
+      <div className={`flex flex-row gap-x-2 ${jura.className}`} style={{ fontWeight: 700 }}>
         {/* <Image src={Nounstar} alt="logoimg" className="h-8 w-7" /> */}
-        <h1 className="text-3xl font-semibold text-blue-700">Curated for you</h1>
+        <h1 className="text-3xl font-semibold text-white ">Curated for you</h1>
       </div>
-      <h1 className="ml-2">Live Channels you might like</h1>
+      <h1 className="text-sm">Live Channels you might like</h1>
       <div className="flex flex-wrap justify-center my-8 gap-x-12">
         {users.map((user, index) => {
           return (
             <Link
               href={`/u/${user.id}`}
               key={index}
-              className="flex flex-col items-center justify-center h-64 gap-4 p-4 border rounded-lg w-80 border-foreground/20 hover:shadow-xl hover:shadow-blue-700/20"
+              className="flex flex-col items-center justify-center h-64 gap-4 p-4 border rounded-lg w-80 border-foreground/20 hover:shadow-xl hover:shadow-[#00FF00]/20"
             >
               {" "}
               <div

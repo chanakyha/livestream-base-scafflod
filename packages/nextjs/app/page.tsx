@@ -7,14 +7,19 @@ import { useAccount } from "wagmi";
 import { BugAntIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import ShowAllUsers from "~~/components/mainpage/ShowAllUsers";
 import { Address } from "~~/components/scaffold-eth";
+import { Header } from "~~/components/Navbar";
+import Hero from "~~/components/Hero";
+import Banner from '../public/Frame 3.png'
 
 const Home: NextPage = () => {
   const { address: connectedAddress } = useAccount();
 
   return (
-    <>
+    <main className="h-screen w-full overflow-x-hidden">
+      <Hero />
+      <Image src={Banner} alt='Logo' width={1920} height={1080} className="w-full h-10" />
       <ShowAllUsers />
-    </>
+    </main>
   );
 };
 
