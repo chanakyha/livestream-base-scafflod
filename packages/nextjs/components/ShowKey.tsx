@@ -5,7 +5,8 @@ import { doc, onSnapshot } from "firebase/firestore";
 import toast from "react-hot-toast";
 import { useAccount } from "wagmi";
 import { db } from "~~/firebase";
-import { createLiveID } from "~~/utils/ingress";
+import { createLiveID } from "~~/utils/ingress";import { Copy } from "lucide-react";
+
 
 const ShowKey = () => {
   const [secretKey, setSecretKey] = useState<string>("");
@@ -52,9 +53,9 @@ const ShowKey = () => {
                       navigator.clipboard.writeText(`rtmp://rtmp.livepeer.com/live`);
                       toast.success("Stream URL Copied to Clipboard");
                     }}
-                    className="text-black bg-[#00FF00] w-1/6 rounded-lg"
+                    className="text-black mx-2 rounded-lg"
                   >
-                    Copy
+                    <Copy className="w-4 h-4 text-white" />
                   </button>
                 </div>
               </div>
@@ -68,19 +69,19 @@ const ShowKey = () => {
                       navigator.clipboard.writeText(secretKey!);
                       toast.success("Stream Key Copied to Clipboard");
                     }}
-                    className="text-white bg-[#00FF00] rounded-lg w-1/6"
+                    className="mx-2"
                   >
-                    Copy
+                    <Copy className="w-4 h-4" />
                   </button>
                 </div>
               </div>
             </div>
 
             <div className="mt-6 flex justify-end gap-2">
-              <button className="btn-secondary text-white" onClick={() => createLiveID(address as `0x${string}`)}>
+              <button className="bg-[#00FF00] text-black rounded-lg w-1/4 h-8" onClick={() => createLiveID(address as `0x${string}`)}>
                 Create Key
               </button>
-              <button onClick={() => setIsOpen(false)}>Close</button>
+              <button onClick={() => setIsOpen(false)} className="bg-red-600 text-black rounded-lg w-1/6 h-8">Close</button>
             </div>
           </div>
         </div>
