@@ -20,9 +20,9 @@ const Dashboardprofile = () => {
         )}
       </div>
       <h1>User: {formatWalletAddress(address ? address : "")}</h1>
-      <div className="bg-[#121212] items-center p-3 w-full">
+      {/* <div className="bg-[#121212] items-center p-3 w-full">
         <h1 className="text-2xl text-center">Dashboard</h1>
-      </div> */}
+      </div>  */}
     </div>
   );
 };
