@@ -1,9 +1,12 @@
 'use client'
 import React from 'react'
+import TierHero from '~~/components/TierHero'
 
 const page = () => {
   return (
-    <div>page</div>
+    <main className="h-screen w-full overflow-x-hidden">
+    <TierHero />
+    </main>
   )
 }
 

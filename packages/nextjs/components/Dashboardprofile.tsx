@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useAccount } from "wagmi";
 import { formatWalletAddress } from "~~/utils/actions";
+import Payoutbutton from "./Payoutbutton";
 
 const Dashboardprofile = () => {
   const { address, isConnected } = useAccount();
@@ -23,6 +24,7 @@ const Dashboardprofile = () => {
       {/* <div className="bg-[#121212] items-center p-3 w-full">
         <h1 className="text-2xl text-center">Dashboard</h1>
       </div>  */}
+      {/* <Payoutbutton /> */}
     </div>
   );
 };

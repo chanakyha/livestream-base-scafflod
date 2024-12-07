@@ -1,0 +1,54 @@
+.buttonContainer {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .payoutButton {
+    padding: 12px 24px;
+    font-size: 1.2rem;
+    background: linear-gradient(45deg, #2ecc71, #27ae60);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.1s ease;
+  }
+  
+  .payoutButton:hover {
+    transform: scale(1.05);
+  }
+  
+  .payoutButton:active {
+    transform: scale(0.95);
+  }
+  
+  .dollar {
+    position: absolute;
+    bottom: 100%;
+    transform: translateY(0);
+    animation: floatUp 1s ease-out;
+    z-index: 10;
+  }
+  
+  .dollar img {
+    width: 32px;
+    height: 32px;
+    filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(86deg) brightness(118%) contrast(119%);
+    object-fit: contain;
+  }
+  
+  @keyframes floatUp {
+    0% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(-100px);
+      opacity: 0;
+    }
+  }
+  
+  .ethereumIcon {
+    width: 24px;
+    height: 24px;
+  }
