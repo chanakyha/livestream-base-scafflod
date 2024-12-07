@@ -15236,6 +15236,7 @@ __metadata:
     livepeer: ^3.5.0
     react-fast-marquee: ^1.6.5
     react-hot-toast: ^2.4.1
+    tailwind-merge: ^2.5.5
     zod: ^3.23.8
   languageName: unknown
   linkType: soft
@@ -16142,6 +16143,13 @@ __metadata:
     string-width: ^4.2.3
     strip-ansi: ^6.0.1
   checksum: f54a7d1c11cda8c676e1e9aff5e723646905ed4579cca14b3ce12d2b12eac3e18f5dbe2549fe0b79697164858e18961145db4dd0660bbeb0fb4032af0aaf32b4
+  languageName: node
+  linkType: hard
+
+"tailwind-merge@npm:^2.5.5":
+  version: 2.5.5
+  resolution: "tailwind-merge@npm:2.5.5"
+  checksum: c835c763642988aa7185f242f93a61a6ce45d577edbefa4016727e664d9e130fa153b0d3a8bbcfcefd1de6a204e9d302971826d4d1068b6fd92ef66a27f35351
   languageName: node
   linkType: hard
 

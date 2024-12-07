@@ -1,5 +1,5 @@
 import LiveChatBot from "./chatbot";
-import { DemoPlayer } from "./streamplayer";
+import { PlayerWithControls } from "./streamplayer";
 import { getSrc } from "@livepeer/react/external";
 import { Livepeer } from "livepeer";
 import { getUserDataUsingWalletAddress } from "~~/utils/actions";
@@ -25,16 +25,14 @@ const StreamerPage = async ({
   };
 
   const src = await getPlaybackSource(streamerInfo?.playbackID!);
-  console.log(src);
 
   return (
-    <div className="grid grid-cols-3 gap-2 p-4 mx-auto max-w-8xl md:p-16 mt-28">
-      <div className="col-span-2 p-2 border rounded-md">
-        <DemoPlayer src={src} />
+    <div className="grid grid-cols-4 gap-2 p-4 mx-auto mt-28">
+      <div className="col-span-3">
+        <PlayerWithControls src={src} />
       </div>
-      <div className="">
-        <LiveChatBot streamerID={profileID} />
-      </div>
+
+      <LiveChatBot streamerID={profileID} />
     </div>
   );
 };

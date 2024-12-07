@@ -150,7 +150,7 @@ const LivestreamChat = ({ streamerID }: { streamerID: string }) => {
   };
 
   return (
-    <div className="w-72 h-[500px] bg-white rounded-lg flex flex-col shadow-lg border border-gray-200">
+    <div className="w-72 h-full bg-white rounded-lg flex flex-col shadow-lg border border-gray-200">
       {/* Chat Header */}
       <div className="px-3 py-2 border-b border-gray-200 bg-gray-50">
         <h2 className="text-gray-800 font-bold text-sm">Live Chat</h2>
