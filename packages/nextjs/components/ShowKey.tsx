@@ -2,11 +2,11 @@
 
 import { useEffect, useState } from "react";
 import { doc, onSnapshot } from "firebase/firestore";
+import { Copy } from "lucide-react";
 import toast from "react-hot-toast";
 import { useAccount } from "wagmi";
 import { db } from "~~/firebase";
-import { createLiveID } from "~~/utils/ingress";import { Copy } from "lucide-react";
-
+import { createLiveID } from "~~/utils/ingress";
 
 const ShowKey = () => {
   const [secretKey, setSecretKey] = useState<string>("");
@@ -21,7 +21,6 @@ const ShowKey = () => {
     const unsub = onSnapshot(docRef, result => {
       if (result.exists()) {
         const data = result.data();
-        console.log(data);
 
         setSecretKey(data?.streamKey);
       }
@@ -78,10 +77,15 @@ const ShowKey = () => {
             </div>
 
             <div className="mt-6 flex justify-end gap-2">
-              <button className="bg-[#00FF00] text-black rounded-lg w-1/4 h-8" onClick={() => createLiveID(address as `0x${string}`)}>
+              <button
+                className="bg-[#00FF00] text-black rounded-lg w-1/4 h-8"
+                onClick={() => createLiveID(address as `0x${string}`)}
+              >
                 Create Key
               </button>
-              <button onClick={() => setIsOpen(false)} className="bg-red-600 text-black rounded-lg w-1/6 h-8">Close</button>
+              <button onClick={() => setIsOpen(false)} className="bg-red-600 text-black rounded-lg w-1/6 h-8">
+                Close
+              </button>
             </div>
           </div>
         </div>
