@@ -214,7 +214,7 @@ export default function Dashboard() {
               height={1080}
               src={dbURL!}
               alt="Uploaded Thumbnail"
-              className="mt-4 border border-2"
+              className="mt-4 border-2"
             />
           )}
 
