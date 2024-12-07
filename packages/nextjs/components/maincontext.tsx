@@ -3,14 +3,17 @@
 import React, { useContext, useEffect } from "react";
 import { createContext } from "react";
 import { doc, getDoc, setDoc } from "firebase/firestore";
+import toast from "react-hot-toast";
 import { useAccount } from "wagmi";
+import { useWriteContract } from "wagmi";
+import { ABI, contractAddress } from "~~/contracts/streamcontractInfo";
 import { db } from "~~/firebase";
 
 const MainContext = createContext({});
 
 const MainProvider = ({ children }: { children: React.ReactNode }) => {
   const account = useAccount();
-  console.log(account);
+  const { writeContract } = useWriteContract();
 
   useEffect(() => {
     if (account.isConnected) {
@@ -27,6 +30,20 @@ const MainProvider = ({ children }: { children: React.ReactNode }) => {
           { merge: true },
         )
           .then(() => {
+            try {
+              writeContract({
+                address: contractAddress,
+                abi: ABI,
+                functionName: "registerStreamer",
+                args: [],
+              });
+
+              console.log("Streamer Registered");
+              toast.success("User Registered Successfully and Streamer mode enabled");
+            } catch (e) {
+              console.error("Error registering streamer:", e);
+            }
+
             console.log("Added to db");
           })
           .catch(err => {

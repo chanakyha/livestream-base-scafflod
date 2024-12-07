@@ -1,31 +1,18 @@
-// app/components/LivestreamChat.tsx
 "use client";
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import {
-  collection,
-  doc,
-  getCountFromServer,
-  getDoc,
-  onSnapshot,
-  query,
-  setDoc,
-  updateDoc,
-  where,
-} from "firebase/firestore";
+import { writeContract } from "@wagmi/core";
+import { collection, doc, getCountFromServer, onSnapshot, setDoc } from "firebase/firestore";
 import { Send } from "lucide-react";
+import toast from "react-hot-toast";
+import { parseEther } from "viem";
 import { useAccount } from "wagmi";
+import { ABI } from "~~/contracts/streamcontractInfo";
+import { contractAddress } from "~~/contracts/streamcontractInfo";
 import { db } from "~~/firebase";
+import { wagmiConfig } from "~~/services/web3/wagmiConfig";
 import { formatWalletAddress, getUserDataUsingWalletAddress } from "~~/utils/actions";
-
-// app/components/LivestreamChat.tsx
-
-// app/components/LivestreamChat.tsx
-
-// app/components/LivestreamChat.tsx
-
-// app/components/LivestreamChat.tsx
 
 type Message = {
   id: string;
@@ -42,10 +29,14 @@ const LivestreamChat = ({ streamerID }: { streamerID: string }) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const account = useAccount();
 
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState(
+    "@hash send 0.001 eth to the streamer with message stating hi how are you",
+  );
   const [showUserList, setShowUserList] = useState(false);
+
   const [userQuery, setUserQuery] = useState("");
   const chatRef = useRef<HTMLDivElement>(null);
+  const [aiResponse, setAiResponse] = useState<string | null>(null);
 
   useEffect(() => {
     const unsub = onSnapshot(collection(db, "users", streamerID, "chats"), async result => {
@@ -102,44 +93,60 @@ const LivestreamChat = ({ streamerID }: { streamerID: string }) => {
       const collRef = collection(db, "users", streamerID, "chats");
       const chatCount = (await getCountFromServer(collRef)).data().count;
 
-      const dbRef = doc(db, "users", streamerID, "chats", `${account.address}-${chatCount + 1}`);
-      const result = setDoc(
-        dbRef,
-        {
-          from: account.address,
-          to: streamerID,
-          message: inputValue,
-        },
-        {
-          merge: true,
-        },
-      );
+      const username = inputValue.split(" ")[0];
+
+      if (username === "@hash") {
+        const aiResponse = await fetch("/api/getAIResponse", {
+          method: "POST",
+          body: JSON.stringify({
+            message: inputValue.slice(5),
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        const responseData = await aiResponse.json();
+
+        console.log(responseData.result?.slice(3, 8).trim());
+
+        if (responseData.result?.slice(3, 8).trim() === "json") {
+          alert("yes");
+          const data = JSON.parse(responseData.result?.slice(8, -4).trim());
+
+          try {
+            writeContract(wagmiConfig, {
+              address: contractAddress,
+              abi: ABI,
+              functionName: "donate",
+              args: [streamerID],
+              value: parseEther(data.amount),
+            });
+
+            console.log("Donation sent successfully");
+            toast.success("Donation sent successfully");
+          } catch (e) {
+            console.error("Error sending donation:", e);
+          }
+        } else {
+          setAiResponse(responseData.result);
+        }
+      } else {
+        const dbRef = doc(db, "users", streamerID, "chats", `${account.address}-${chatCount + 1}`);
+        setDoc(
+          dbRef,
+          {
+            from: account.address,
+            to: streamerID,
+            message: inputValue,
+          },
+          {
+            merge: true,
+          },
+        );
+      }
 
       setInputValue("");
     }
-  };
-
-  const highlightMentions = (text: string) => {
-    return text.split(" ").map((word, index) => {
-      if (word.startsWith("@")) {
-        const username = word.slice(1);
-
-        const user = query(collection(db, "users"), where("username", "==", username));
-
-        if (user) {
-          return (
-            <span key={index} className={`mx-0.5 font-semibold`}>
-              {word}
-            </span>
-          );
-        }
-      }
-      return (
-        <span key={index} className="mx-0.5">
-          {word}
-        </span>
-      );
-    });
   };
 
   return (
@@ -169,11 +176,16 @@ const LivestreamChat = ({ streamerID }: { streamerID: string }) => {
                     <span className="text-xs bg-red-500 text-white px-1.5 py-0.5 rounded">Host</span>
                   )}
                 </div>
-                <p className="text-sm text-gray-700 break-words">{highlightMentions(message.message)}</p>
+                <p className="text-sm text-gray-700 break-words">{message.message}</p>
               </div>
             </div>
           </div>
         ))}
+        {aiResponse && (
+          <div className="px-3 py-1 bg-blue-100">
+            <p className="text-sm text-gray-700 break-words">{aiResponse}</p>
+          </div>
+        )}
       </div>
 
       {/* Chat Input */}
