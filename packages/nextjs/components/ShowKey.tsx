@@ -7,6 +7,7 @@ import { db } from "~~/firebase";
 // import { IngressInput } from "livekit-server-sdk";
 import toast from "react-hot-toast";
 import { useAccount } from "wagmi";
+import { Copy } from "lucide-react";
 
 
 const ShowKey = () => {
@@ -52,15 +53,15 @@ const ShowKey = () => {
               <div>
                 <label className="block mb-2">Stream URL</label>
                 <div className="flex gap-2">
-                  <input value={streamURL} readOnly className="border p-2 flex-1 bg-gray-100 rounded-lg" />
+                  <input value={streamURL} readOnly className="border p-2 flex-1 rounded-lg" />
                   <button
                     onClick={() => {
                       navigator.clipboard.writeText(streamURL!);
                       toast.success("Stream URL Copied to Clipboard");
                     }}
-                    className="text-white bg-[#00FF00] w-1/6 rounded-lg"
+                   className="mx-2"
                   >
-                    Copy
+                    <Copy className="w-4 h-4" />
                   </button>
                 </div>
               </div>
@@ -68,28 +69,28 @@ const ShowKey = () => {
               <div>
                 <label className="block mb-2">Stream Secret Key</label>
                 <div className="flex gap-2">
-                  <input value={secretKey} readOnly className="border p-2 flex-1 bg-gray-100 rounded-lg" />
+                  <input value={secretKey} readOnly className="border p-2 flex-1 rounded-lg" />
                   <button
                     onClick={() => {
                       navigator.clipboard.writeText(secretKey!);
                       toast.success("Stream Key Copied to Clipboard");
                     }}
-                    className="text-white bg-[#00FF00] rounded-lg w-1/6"
+                    className="mx-2"
                   >
-                    Copy
+                    <Copy className="w-4 h-4" />
                   </button>
                 </div>
               </div>
             </div>
 
-            <div className="mt-6 flex justify-end gap-2">
+            <div className="mt-6 flex justify-end gap-8">
               <button
-                className="btn-secondary"
+                className="bg-[#00FF00] text-black rounded-lg w-1/4 h-8"
                 // onClick={() => createIngress(parseInt(typeof RTMP), address)}
               >
                 Create Key
               </button>
-              <button onClick={() => setIsOpen(false)}>Close</button>
+              <button onClick={() => setIsOpen(false)} className="bg-red-600 text-black rounded-lg w-1/6 h-8">Close</button>
             </div>
           </div>
         </div>

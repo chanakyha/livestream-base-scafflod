@@ -149,9 +149,10 @@ export default function Dashboard() {
     };
   
     return (
-      <div className="flex flex-row justify-center items-center w-full my-36 px-4">
+      <div className="flex flex-row justify-center items-center w-scren px-4 bg-black h-screen">
+        <div className='flex flex-row gap-x-16 w-4/5 justify-center items-center mt-16'>
         <Dashboardprofile />
-        <div className="flex flex-col items-start justify-center w-full h-full">
+        <div className="flex flex-col items-start justify-center items-center w-full h-full">
         <div className="flex flex-col w-full max-w-lg gap-3 mx-auto">
           <div className="flex items-center gap-3">
             <input
@@ -163,7 +164,7 @@ export default function Dashboard() {
             />
             <button 
               onClick={changeUsername}
-              className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+              className="px-4 py-2 bg-[#00FF00] text-black rounded-md"
             >
               Update Username
             </button>
@@ -178,7 +179,7 @@ export default function Dashboard() {
             />
             <button 
               onClick={changeStreamTitle}
-              className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+              className="px-4 py-2 bg-[#00FF00] text-black rounded-md hover:bg-[#00FF00]"
             >
               Update Stream Title
             </button>
@@ -187,11 +188,11 @@ export default function Dashboard() {
             <input
               type="file"
               onChange={handleImageChange}
-              className="p-2 border rounded-md flex-1"
+              className="p-2 border rounded-md flex-1 w-1/2"
             />
             <button 
               onClick={uploadImage}
-              className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+              className="px-4 py-2 bg-[#00FF00] text-black rounded-md hover:bg-[#00FF00] w-1/2"
             >
               Update Stream Thumbnail
             </button>
@@ -213,13 +214,14 @@ export default function Dashboard() {
               height={1080}
               src={dbURL!}
               alt="Uploaded Thumbnail"
-              className="mt-4"
+              className="mt-4 border border-2"
             />
           )}
 
           {isConnected &&
            <ShowKey />
            }
+        </div>
         </div>
       </div>
     </div>
