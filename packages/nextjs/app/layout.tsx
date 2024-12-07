@@ -1,4 +1,5 @@
 import "@rainbow-me/rainbowkit/styles.css";
+import { Toaster } from "react-hot-toast";
 import { Header } from "~~/components/Header";
 import { ScaffoldEthAppWithProviders } from "~~/components/ScaffoldEthAppWithProviders";
 import { ThemeProvider } from "~~/components/ThemeProvider";
@@ -20,10 +21,7 @@ const ScaffoldEthApp = ({ children }: { children: React.ReactNode }) => {
       <body className={mont.className}>
         <ThemeProvider enableSystem>
           <ScaffoldEthAppWithProviders>
-            <MainProvider>
-            <Header />
-            {children}
-            </MainProvider>
+            <MainProvider>{children}</MainProvider>
           </ScaffoldEthAppWithProviders>
         </ThemeProvider>
       </body>
