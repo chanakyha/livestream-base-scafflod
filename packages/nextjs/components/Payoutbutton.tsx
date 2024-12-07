@@ -2,8 +2,14 @@ import React, { useState } from 'react';
 import styles from './Payoutbutton.module.css';
 import EthereumLogo from '../public/Ethereum_logo.svg';
 import Image from 'next/image';
+import  {payout}  from '~~/components/Dashboardprofile';
 
-const Payoutbutton = () => {
+interface PayoutButtonProps {
+  isConnected: boolean;
+  payoutBalance: number | undefined;
+}
+
+const Payoutbutton = ({isConnected, payoutBalance }: PayoutButtonProps) => {
   const [dollars, setDollars] = useState<{ id: number; left: number }[]>([]);
 
   const createDollar = () => {
@@ -22,9 +28,12 @@ const Payoutbutton = () => {
     <div className={styles.buttonContainer}>
       <button 
         className={styles.payoutButton}
-        onClick={createDollar}
+        onClick={() => {
+            createDollar()
+            payout()
+        }}
       >
-        Payout 💰
+        Payout: {payoutBalance ? payoutBalance / 1000000000000000000 : 0} ETH
       </button>
       {dollars.map(dollar => (
         <div

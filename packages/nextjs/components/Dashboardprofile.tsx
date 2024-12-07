@@ -11,6 +11,30 @@ import { wagmiConfig } from "~~/services/web3/wagmiConfig";
 import { formatWalletAddress } from "~~/utils/actions";
 import Payoutbutton from "./Payoutbutton";
 
+export const payout = () => {
+  toast.loading(<b>Undergoing Payout...</b>, {
+    id: "payout",
+  });
+  writeContract(wagmiConfig, {
+    abi: ABI,
+    address: contractAddress,
+    functionName: "requestPayout",
+  })
+    .then(hash => {
+      toast.success(<b>Payout added to wallet</b>, {
+        id: "payout",
+      });
+
+      console.log(hash);
+    })
+    .catch(e => {
+      toast.error(<b>Error adding to payout</b>, {
+        id: "payout",
+      });
+      console.log(e);
+    });
+};
+
 const Dashboardprofile = () => {
   const { address, isConnected } = useAccount();
   const [payoutBalance, setPayoutBalance] = useState<number>();
@@ -29,30 +53,6 @@ const Dashboardprofile = () => {
     })();
   }, [address, isConnected]);
 
-  const payout = () => {
-    toast.loading(<b>Undergoing Payout...</b>, {
-      id: "payout",
-    });
-    writeContract(wagmiConfig, {
-      abi: ABI,
-      address: contractAddress,
-      functionName: "requestPayout",
-    })
-      .then(hash => {
-        toast.success(<b>Payout added to wallet</b>, {
-          id: "payout",
-        });
-
-        console.log(hash);
-      })
-      .catch(e => {
-        toast.error(<b>Error adding to payout</b>, {
-          id: "payout",
-        });
-        console.log(e);
-      });
-  };
-
   return (
     <div className=" w-1/2 items-center ml-16 flex flex-col gap-y-14">
       <div className="flex items-center justify-center">
@@ -67,10 +67,11 @@ const Dashboardprofile = () => {
         )}
       </div>
       <h1>User: {formatWalletAddress(address ? address : "")}</h1>
-      <div className="bg-[#121212] items-center p-3 w-full">
-        <button onClick={payout} className="text-2xl w-full text-center">
+      <div className="flex items-center justify-center p-3 w-full">
+        {/* <button onClick={payout} className="text-2xl w-full text-center">
           Payout: {payoutBalance ? payoutBalance / 1000000000000000000 : 0} ETH
-        </button>
+        </button> */}
+        <Payoutbutton isConnected={isConnected} payoutBalance={payoutBalance} />
       </div>
     </div>
   );

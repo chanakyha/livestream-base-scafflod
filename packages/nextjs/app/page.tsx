@@ -10,6 +10,7 @@ import { Address } from "~~/components/scaffold-eth";
 import { Header } from "~~/components/Header";
 import Hero from "~~/components/Hero";
 import Banner from '~~/components/Banner'
+import { Footer } from "~~/components/Footer";
 
 const Home: NextPage = () => {
   const { address: connectedAddress } = useAccount();
@@ -20,6 +21,7 @@ const Home: NextPage = () => {
       {/* <Image src={Banner} alt='Logo' width={1920} height={1080} className="w-full h-10" /> */}
       <Banner />
       <ShowAllUsers />
+      <Footer />
     </main>
   );
 };

@@ -13,6 +13,7 @@ import { contractAddress } from "~~/contracts/streamcontractInfo";
 import { db } from "~~/firebase";
 import { wagmiConfig } from "~~/services/web3/wagmiConfig";
 import { formatWalletAddress, getUserDataUsingWalletAddress } from "~~/utils/actions";
+import { Jura } from "next/font/google";
 
 type Message = {
   id: string;
@@ -24,6 +25,12 @@ type Message = {
   } | null;
   message: string;
 };
+
+const jura = Jura({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  style: ["normal"],
+});
 
 const LivestreamChat = ({ streamerID }: { streamerID: string }) => {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -150,16 +157,16 @@ const LivestreamChat = ({ streamerID }: { streamerID: string }) => {
   };
 
   return (
-    <div className="w-72 h-full bg-white rounded-lg flex flex-col shadow-lg border border-gray-200">
+    <div className="w-72 h-full bg-[#1C1C1C] rounded-lg flex flex-col shadow-lg">
       {/* Chat Header */}
-      <div className="px-3 py-2 border-b border-gray-200 bg-gray-50">
-        <h2 className="text-gray-800 font-bold text-sm">Live Chat</h2>
+      <div className="px-3 py-2 border-b border-[#2C2C2C] border-shadow bg-[#1C1C1C] rounded-t-lg items-center flex justify-start">
+        <h2 className="text-white font-bold text-sm">Live Chat</h2>
       </div>
 
       {/* Chat Messages */}
-      <div ref={chatRef} className="flex-1 overflow-y-auto py-2 bg-white">
+      <div ref={chatRef} className="flex-1 overflow-y-auto py-2 bg-[#1C1C1C]">
         {messages.map((message, index) => (
-          <div key={message.id} className="px-3 py-1 hover:bg-gray-50">
+          <div key={message.id} className="px-3 py-1 hover:bg-[#2C2C2C]">
             <div className="flex items-start gap-2">
               <div className="flex-shrink-0 w-6 h-6 relative rounded-full overflow-hidden">
                 <Image
@@ -173,23 +180,33 @@ const LivestreamChat = ({ streamerID }: { streamerID: string }) => {
                 <div className="flex items-center gap-1">
                   <span className={`text-sm font-bold truncate`}>{formatWalletAddress(message.fromUser?.id!)}</span>
                   {message.fromUser?.id === message.toUser?.id && (
-                    <span className="text-xs bg-red-500 text-white px-1.5 py-0.5 rounded">Host</span>
+                    <span className="text-xs bg-red-500 text-[#1C1C1C] px-1.5 py-0.5 rounded">Host</span>
                   )}
                 </div>
-                <p className="text-sm text-gray-700 break-words">{message.message}</p>
+                <p className="text-sm text-white break-words">{message.message}</p>
+                {/* <p className="text-sm text-gray-700 break-words">
+                  {message.message.startsWith('@hash') ? (
+                    <>
+                      <span style={{ color: '#00FF00' }}>@hash</span>
+                      {message.message.slice(5)}
+                    </>
+                  ) : (
+                    message.message
+                  )}
+                </p> */}
               </div>
             </div>
           </div>
         ))}
         {aiResponse && (
-          <div className="px-3 py-1 bg-blue-100">
-            <p className="text-sm text-gray-700 break-words">{aiResponse}</p>
+          <div className="px-3 py-1 bg-[#2C2C2C]">
+            <p className={`${jura.className} text-sm text-[#00FF00] break-words`}>{aiResponse}</p>
           </div>
         )}
       </div>
 
       {/* Chat Input */}
-      <form onSubmit={handleSubmit} className="p-2 border-t border-gray-200 bg-gray-50">
+      <form onSubmit={handleSubmit} className="p-2 border-t border-[#2C2C2C] border-shadow bg-[#1C1C1C] rounded-b-lg">
         <div className="relative">
           <input
             type="text"
