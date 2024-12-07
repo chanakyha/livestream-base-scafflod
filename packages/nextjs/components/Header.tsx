@@ -26,6 +26,7 @@ const jura = Jura({
 const navelem = [
   { label: "Home", href: "/" },
   { label: "Dashboard", href: "/dashboard" },
+  { label: "Tiers", href: "/tiers" },
 ];
 
 export const Header = () => {

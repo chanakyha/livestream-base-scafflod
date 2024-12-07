@@ -13896,6 +13896,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-fast-marquee@npm:^1.6.5":
+  version: 1.6.5
+  resolution: "react-fast-marquee@npm:1.6.5"
+  peerDependencies:
+    react: ">= 16.8.0 || ^18.0.0"
+    react-dom: ">= 16.8.0 || ^18.0.0"
+  checksum: 5213b10983f47a2dc27c3206144f96b37dad2f08457b19ecb9e393e4bd3c8db8c9cccf1758ceb5c4ca6d697e3715f3f90c5d806e4cb62bbbad9ece7f0e7b3caf
+  languageName: node
+  linkType: hard
+
 "react-hot-toast@npm:^2.4.0, react-hot-toast@npm:^2.4.1":
   version: 2.4.1
   resolution: "react-hot-toast@npm:2.4.1"
@@ -14510,6 +14520,7 @@ __metadata:
     husky: ^8.0.1
     lint-staged: ^13.0.3
     livepeer: ^3.5.0
+    react-fast-marquee: ^1.6.5
     react-hot-toast: ^2.4.1
     zod: ^3.23.8
   languageName: unknown
