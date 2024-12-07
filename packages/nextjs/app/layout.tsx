@@ -11,7 +11,7 @@ import { getMetadata } from "~~/utils/scaffold-eth/getMetadata";
 const mont = Montserrat({ subsets: ["latin"] });
 
 export const metadata = getMetadata({
-  title: "Scaffold-ETH 2 App",
+  title: "StreamBase",
   description: "Built with 🏗 Scaffold-ETH 2",
 });
 

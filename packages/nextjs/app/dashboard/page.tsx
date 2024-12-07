@@ -148,6 +148,11 @@ export default function Dashboard() {
       });
   };
 
+  if (!isConnected)
+    return (
+      <div className="w-screen h-screen flex items-center justify-center">Page not found, Please Connect to wallet</div>
+    );
+
   return (
     <div className="flex flex-row justify-center items-center w-scren px-4 bg-black h-screen">
       <div className="flex flex-row gap-x-16 w-4/5 justify-center items-center mt-16">
