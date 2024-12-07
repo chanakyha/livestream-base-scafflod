@@ -53,9 +53,9 @@ const ShowKey = () => {
                       navigator.clipboard.writeText(`rtmp://rtmp.livepeer.com/live`);
                       toast.success("Stream URL Copied to Clipboard");
                     }}
-                    className="text-black bg-[#00FF00] w-1/6 rounded-lg"
+                    className="text-black mx-2 rounded-lg"
                   >
-                    <Copy className="w-4 h-4" />
+                    <Copy className="w-4 h-4 text-white" />
                   </button>
                 </div>
               </div>
@@ -78,7 +78,7 @@ const ShowKey = () => {
             </div>
 
             <div className="mt-6 flex justify-end gap-2">
-              <button className="btn-secondary text-white" onClick={() => createLiveID(address as `0x${string}`)}>
+              <button className="bg-[#00FF00] text-black rounded-lg w-1/4 h-8" onClick={() => createLiveID(address as `0x${string}`)}>
                 Create Key
               </button>
               <button onClick={() => setIsOpen(false)} className="bg-red-600 text-black rounded-lg w-1/6 h-8">Close</button>

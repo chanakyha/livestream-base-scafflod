@@ -152,7 +152,7 @@ export default function Dashboard() {
       <div className="flex flex-row justify-center items-center w-scren px-4 bg-black h-screen">
         <div className='flex flex-row gap-x-16 w-4/5 justify-center items-center mt-16'>
         <Dashboardprofile />
-        <div className="flex flex-col items-start justify-center items-center w-full h-full">
+        <div className="flex flex-col justify-center items-center w-full h-full">
         <div className="flex flex-col w-full max-w-lg gap-3 mx-auto">
           <div className="flex items-center gap-3">
             <input
