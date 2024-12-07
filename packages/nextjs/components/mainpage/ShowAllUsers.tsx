@@ -1,17 +1,17 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { Jura } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
 // import Nounstar from "../assets/Nounstars.png";
 import { collection, onSnapshot } from "firebase/firestore";
 import { db } from "~~/firebase";
-import { Jura } from 'next/font/google';
 
 const jura = Jura({
-  subsets: ['latin'],
-  weight: ['400', '700'],
-  style: ['normal']
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  style: ["normal"],
 });
 
 const ShowAllUsers = () => {
@@ -34,7 +34,6 @@ const ShowAllUsers = () => {
   return (
     <div className="container pt-4 px-4 mx-auto bg-black pb-4">
       <div className={`flex flex-row gap-x-2 ${jura.className}`} style={{ fontWeight: 700 }}>
-        {/* <Image src={Nounstar} alt="logoimg" className="h-8 w-7" /> */}
         <h1 className="text-3xl font-semibold text-white ">Curated for you</h1>
       </div>
       <h1 className="text-sm">Live Channels you might like</h1>

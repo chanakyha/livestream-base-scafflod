@@ -1,3 +1,4 @@
+import { Montserrat } from "next/font/google";
 import "@rainbow-me/rainbowkit/styles.css";
 import { Toaster } from "react-hot-toast";
 import { Header } from "~~/components/Header";
@@ -6,7 +7,6 @@ import { ThemeProvider } from "~~/components/ThemeProvider";
 import MainProvider from "~~/components/maincontext";
 import "~~/styles/globals.css";
 import { getMetadata } from "~~/utils/scaffold-eth/getMetadata";
-import { Montserrat } from "next/font/google";
 
 const mont = Montserrat({ subsets: ["latin"] });
 
@@ -24,7 +24,7 @@ const ScaffoldEthApp = ({ children }: { children: React.ReactNode }) => {
             <MainProvider>
               <Header />
               {children}
-              </MainProvider>
+            </MainProvider>
           </ScaffoldEthAppWithProviders>
         </ThemeProvider>
       </body>
