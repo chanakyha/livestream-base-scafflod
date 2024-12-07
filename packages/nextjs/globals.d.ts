@@ -9,4 +9,5 @@ type Streamer = {
   username?: string;
   thumbnail?: string;
   streamTitle?: string;
+  playbackID?: string;
 };
