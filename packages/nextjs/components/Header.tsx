@@ -11,6 +11,7 @@ import {
   RainbowKitCustomConnectButton,
   SuperchainFaucetButton,
 } from "~~/components/scaffold-eth";
+import SBLogo from "../public/streambaselogo.png";
 
 type HeaderMenuLink = {
   label: string;
@@ -38,7 +39,10 @@ export const Header = () => {
       <div className="w-[90%] bg-[#1C1C1C] h-16 py-0 px-4 flex flex-row justify-center rounded-lg shadow-lg">
         <div className="flex w-full items-center justify-between ">
           <div className="flex flex-row gap-x-12">
-            <Image src={Logo} alt="Logo" width={1920} height={1080} className="w-40 h-6" />
+            <div className="flex flex-row gap-x-4 items-center px-4">
+              <Image src={SBLogo} alt="Logo" width={1920} height={1080} className="w-10 h-10" />
+              <Image src={Logo} alt="Logo" width={1920} height={1080} className="w-40 h-6" />
+            </div>
             <div className="flex justify-center items-center gap-x-8">
               {navelem.map(elem => {
                 const isActive = pathname === elem.href;
