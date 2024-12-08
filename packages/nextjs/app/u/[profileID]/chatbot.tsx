@@ -36,9 +36,7 @@ const LivestreamChat = ({ streamerID }: { streamerID: string }) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const account = useAccount();
 
-  const [inputValue, setInputValue] = useState(
-    "@hash send 0.001 eth to the streamer with message stating hi how are you",
-  );
+  const [inputValue, setInputValue] = useState("");
   const [showUserList, setShowUserList] = useState(false);
 
   const [userQuery, setUserQuery] = useState("");

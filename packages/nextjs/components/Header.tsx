@@ -5,15 +5,16 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Logo from "../public/Logo.png";
+import SBLogo from "../public/streambaselogo.png";
 // @ts-ignore
-import { FundButton } from "@coinbase/onchainkit/fund";
+import { FundButton, getOnrampBuyUrl } from "@coinbase/onchainkit/fund";
+import { useAccount } from "wagmi";
 import {
   BaseFaucetsButton,
   FaucetButton,
   RainbowKitCustomConnectButton,
   SuperchainFaucetButton,
 } from "~~/components/scaffold-eth";
-import SBLogo from "../public/streambaselogo.png";
 
 type HeaderMenuLink = {
   label: string;
@@ -34,6 +35,15 @@ const navelem = [
 
 export const Header = () => {
   const pathname = usePathname();
+  const { address } = useAccount();
+
+  const onrampBuyUrl = getOnrampBuyUrl({
+    projectId: process.env.NEXT_PUBLIC_CDP_PROJECT_ID,
+    addresses: { [address as string]: ["base"] },
+    assets: ["ETH"],
+    presetFiatAmount: 20,
+    fiatCurrency: "INR",
+  });
 
   return (
     <div className="fixed top-5 z-50 flex items-center justify-center w-full">
@@ -64,7 +74,7 @@ export const Header = () => {
           </div>
           <div className="flex items-center gap-x-6">
             <RainbowKitCustomConnectButton />
-            <FundButton text="Add Funds to Wallet" />
+            <FundButton text="Add Funds to Wallet" fundingUrl={onrampBuyUrl} />
             <FaucetButton />
           </div>
         </div>
