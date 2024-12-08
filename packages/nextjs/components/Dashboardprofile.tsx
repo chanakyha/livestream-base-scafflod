@@ -10,6 +10,12 @@ import { ABI, contractAddress } from "~~/contracts/streamcontractInfo";
 import { wagmiConfig } from "~~/services/web3/wagmiConfig";
 import { formatWalletAddress } from "~~/utils/actions";
 import Payoutbutton from "./Payoutbutton";
+import { Jura } from "next/font/google";
+
+const jura = Jura({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+});
 
 export const payout = () => {
   toast.loading(<b>Undergoing Payout...</b>, {

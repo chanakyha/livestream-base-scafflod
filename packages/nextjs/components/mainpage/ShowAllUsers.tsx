@@ -47,7 +47,7 @@ const ShowAllUsers = () => {
             >
               {" "}
               <div
-                className="flex items-center justify-center w-full h-full"
+                className="flex items-center justify-center w-full h-full bg-cover bg-center"
                 style={{
                   backgroundImage: `url(${user.thumbnail})`,
                 }}
