@@ -1,6 +1,8 @@
 import { Montserrat } from "next/font/google";
+import { OnchainKitProvider } from "@coinbase/onchainkit";
 import "@rainbow-me/rainbowkit/styles.css";
 import { Toaster } from "react-hot-toast";
+import { Chain, baseSepolia } from "viem/chains";
 import { Header } from "~~/components/Header";
 import { ScaffoldEthAppWithProviders } from "~~/components/ScaffoldEthAppWithProviders";
 import { ThemeProvider } from "~~/components/ThemeProvider";

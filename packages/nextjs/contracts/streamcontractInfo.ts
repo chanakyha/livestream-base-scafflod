@@ -192,3 +192,5 @@ export const ABI = [
 ];
 
 export const contractAddress = "0xe8d37cf0e7b6e52480095247be22a37c97d96754";
+
+export const nftContracts = ["0xa37F79593C2418502EEc20EE1a737ecB3742168E"];

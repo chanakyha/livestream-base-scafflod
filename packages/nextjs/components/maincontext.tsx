@@ -2,18 +2,20 @@
 
 import React, { useContext, useEffect } from "react";
 import { createContext } from "react";
+import { OnchainKitProvider } from "@coinbase/onchainkit";
+import { writeContract } from "@wagmi/core";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import toast from "react-hot-toast";
+import { base, baseSepolia } from "viem/chains";
 import { useAccount } from "wagmi";
-import { useWriteContract } from "wagmi";
 import { ABI, contractAddress } from "~~/contracts/streamcontractInfo";
 import { db } from "~~/firebase";
+import { wagmiConfig } from "~~/services/web3/wagmiConfig";
 
 const MainContext = createContext({});
 
 const MainProvider = ({ children }: { children: React.ReactNode }) => {
   const account = useAccount();
-  const { writeContract } = useWriteContract();
 
   useEffect(() => {
     if (account.isConnected) {
@@ -22,6 +24,9 @@ const MainProvider = ({ children }: { children: React.ReactNode }) => {
       (async () => {
         const docExits = await getDoc(docRef);
         if (docExits.exists()) return;
+        toast.loading(<b>Registering Streamer to the chain</b>, {
+          id: "streamer",
+        });
         setDoc(
           docRef,
           {
@@ -30,19 +35,24 @@ const MainProvider = ({ children }: { children: React.ReactNode }) => {
           { merge: true },
         )
           .then(() => {
-            try {
-              writeContract({
-                address: contractAddress,
-                abi: ABI,
-                functionName: "registerStreamer",
-                args: [],
-              });
+            writeContract(wagmiConfig, {
+              address: contractAddress,
+              abi: ABI,
+              functionName: "registerStreamer",
+              args: [],
+            })
+              .then(result => {
+                toast.success("User Registered Successfully and Streamer mode enabled", {
+                  id: "streamer",
+                });
+              })
+              .catch(e => {
+                toast.error("Error registering user", {
+                  id: "streamer",
+                });
 
-              console.log("Streamer Registered");
-              toast.success("User Registered Successfully and Streamer mode enabled");
-            } catch (e) {
-              console.error("Error registering streamer:", e);
-            }
+                console.log(e);
+              });
 
             console.log("Added to db");
           })
@@ -53,7 +63,18 @@ const MainProvider = ({ children }: { children: React.ReactNode }) => {
     }
   }, [account]);
 
-  return <MainContext.Provider value={{}}>{children}</MainContext.Provider>;
+  return (
+    <MainContext.Provider value={{}}>
+      <OnchainKitProvider
+        apiKey={process.env.NEXT_PUBLIC_ONCHAINKIT_API_KEY}
+        projectId={process.env.NEXT_PUBLIC_CDP_PROJECT_ID}
+        // @ts-ignore
+        chain={base}
+      >
+        {children}
+      </OnchainKitProvider>
+    </MainContext.Provider>
+  );
 };
 
 export default MainProvider;

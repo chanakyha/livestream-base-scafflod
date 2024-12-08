@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { Jura } from "next/font/google";
 import Image from "next/image";
 import { writeContract } from "@wagmi/core";
 import { collection, doc, getCountFromServer, onSnapshot, setDoc } from "firebase/firestore";
@@ -13,7 +14,6 @@ import { contractAddress } from "~~/contracts/streamcontractInfo";
 import { db } from "~~/firebase";
 import { wagmiConfig } from "~~/services/web3/wagmiConfig";
 import { formatWalletAddress, getUserDataUsingWalletAddress } from "~~/utils/actions";
-import { Jura } from "next/font/google";
 
 type Message = {
   id: string;
@@ -117,23 +117,23 @@ const LivestreamChat = ({ streamerID }: { streamerID: string }) => {
         console.log(responseData.result?.slice(3, 8).trim());
 
         if (responseData.result?.slice(3, 8).trim() === "json") {
-          alert("yes");
           const data = JSON.parse(responseData.result?.slice(8, -4).trim());
 
-          try {
-            writeContract(wagmiConfig, {
-              address: contractAddress,
-              abi: ABI,
-              functionName: "donate",
-              args: [streamerID],
-              value: parseEther(data.amount),
+          writeContract(wagmiConfig, {
+            address: contractAddress,
+            abi: ABI,
+            functionName: "donate",
+            args: [streamerID],
+            value: parseEther(data.amount),
+          })
+            .then(result => {
+              setAiResponse(`${data.amount} ETH is sent to the streamer`);
+              console.log("Donation sent successfully");
+              toast.success("Donation sent successfully");
+            })
+            .catch(e => {
+              console.error("Error sending donation:", e);
             });
-
-            console.log("Donation sent successfully");
-            toast.success("Donation sent successfully");
-          } catch (e) {
-            console.error("Error sending donation:", e);
-          }
         } else {
           setAiResponse(responseData.result);
         }

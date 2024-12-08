@@ -5,6 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Logo from "../public/Logo.png";
+// @ts-ignore
+import { FundButton } from "@coinbase/onchainkit/fund";
 import {
   BaseFaucetsButton,
   FaucetButton,
@@ -62,9 +64,7 @@ export const Header = () => {
           </div>
           <div className="flex items-center gap-x-6">
             <RainbowKitCustomConnectButton />
-            {/* <BaseFaucetsButton /> */}
-            {/* <SwitchTheme /> */}
-
+            <FundButton text="Add Funds to Wallet" />
             <FaucetButton />
           </div>
         </div>
