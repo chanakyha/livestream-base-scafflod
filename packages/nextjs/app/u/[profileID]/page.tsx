@@ -31,7 +31,7 @@ const StreamerPage = async ({
     <div className="grid grid-cols-4 gap-2 p-4 mx-auto mt-28">
       <div className="col-span-3 flex flex-col items-center justify-center">
         <PlayerWithControls src={src} />
-        <div className="w-full flex justify-between flex-row">
+        <div className="w-full flex justify-between flex-row mt-4">
           <h1 className={`text-left w-full text-[#00FF00] text-3xl font-semibold`}>{streamerInfo?.streamTitle}</h1>
           <SubscribeButton />
         </div>
